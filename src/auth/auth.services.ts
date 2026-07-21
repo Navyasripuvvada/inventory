@@ -12,8 +12,8 @@ import { randomUUID } from 'crypto';
 
 
 
-import { User,UserDocument } from '../user/schema/user.schema';
-import { Session,SessionDocument, SessionStatus } from '../user/schema/session.schema';
+import { UserInv,UserDocument } from '../user/schema/user.schema';
+import { SessionInv,SessionDocument, SessionStatus } from '../user/schema/session.schema';
 import { MailService } from '../email/email.service'
 import { RegisterDto } from './dto/register.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
@@ -31,9 +31,9 @@ const BCRYPT_ROUNDS = 12;
 @Injectable()
 export class AuthService{
     constructor(
-        @InjectModel(User.name)
+        @InjectModel(UserInv.name)
         private readonly userModel:Model<UserDocument>,
-        @InjectModel(Session.name)
+        @InjectModel(SessionInv.name)
         private readonly sessionModel:Model<SessionDocument>,
         private readonly mailService:MailService,
         private readonly jwtService:JwtService
@@ -124,6 +124,8 @@ export class AuthService{
         if(!user.isEmailVerified){
             throw new UnauthorizedException("Verify Email First")
         }
+        console.log("DTO password:", dto.password);
+        console.log("DB password:", user.password);
         const isMatch = await bcrypt.compare(dto.password,user.password)
         if(!isMatch){
             throw new UnauthorizedException("password is not correct")

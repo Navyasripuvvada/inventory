@@ -11,8 +11,8 @@ import { Model } from 'mongoose';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 
-import { User,UserDocument } from '../../user/schema/user.schema';
-import { Session,SessionDocument } from '../../user/schema/session.schema';
+import { UserInv,UserDocument } from '../../user/schema/user.schema';
+import { SessionInv,SessionDocument } from '../../user/schema/session.schema';
 export interface JwtPayload {
   sub: string;
   sessionId: string;
@@ -24,9 +24,9 @@ export interface JwtPayload {
 export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
   constructor(
     private readonly configService: ConfigService,
-    @InjectModel(User.name)
+    @InjectModel(UserInv.name)
     private readonly userModel: Model<UserDocument>,
-     @InjectModel(Session.name)
+     @InjectModel(SessionInv.name)
     private readonly sessionModel: Model<SessionDocument>,
   ) {
     const secret =configService.get<string>(  'ACCESS_SECRET_KEY',);

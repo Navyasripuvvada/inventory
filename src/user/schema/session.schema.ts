@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-import { User } from './user.schema';
+import { UserInv } from './user.schema';
 
-export type SessionDocument = Session & Document;
+export type SessionDocument = SessionInv & Document;
 
 export enum SessionStatus {
   ACTIVE = 'ACTIVE',
@@ -15,7 +15,7 @@ export enum SessionStatus {
 @Schema({
   timestamps: true,
 })
-export class Session {
+export class SessionInv {
   @Prop({
     required: true,
     unique: true,
@@ -24,7 +24,7 @@ export class Session {
 
   @Prop({
     type: Types.ObjectId,
-    ref: User.name,
+    ref: UserInv.name,
     required: true,
     index: true,
   })
@@ -72,7 +72,6 @@ export class Session {
   @Prop({
     type:String,
     default: null,
-    select: false,
   })
   refreshToken: string | null;
 
@@ -101,7 +100,7 @@ export class Session {
 }
 
 export const SessionSchema =
-  SchemaFactory.createForClass(Session);
+  SchemaFactory.createForClass(SessionInv);
 
 SessionSchema.index({ userId: 1 });
 SessionSchema.index({ status: 1 });

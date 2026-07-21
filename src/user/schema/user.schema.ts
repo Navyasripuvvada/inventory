@@ -1,10 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type UserDocument = User & Document;
+export type UserDocument = UserInv & Document;
 
 export enum UserRole {
-  ADMIN = 'ADMIN',
   CUSTOMER = 'CUSTOMER',
   MANAGER='MANAGER',
   SUPPLIER='SUPPLIER',
@@ -19,7 +18,7 @@ export enum UserStatus {
 @Schema({
   timestamps: true,
 })
-export class User {
+export class UserInv {
   @Prop({
     required: true,
     trim: true,
@@ -37,7 +36,6 @@ export class User {
 
   @Prop({
     required: true,
-    select: false,
   })
   password: string;
 
@@ -105,6 +103,16 @@ otpExpiry: Date | null;
  })
  resetPasswordToken:string | null;
 
+ @Prop({type:String,
+  default:null
+ })
+ address:string | null;
+
+ @Prop({type:Date,
+  default:null
+ })
+ dateOfBirth:Date | null
+
 
  @Prop({
   type:Date,
@@ -115,7 +123,7 @@ otpExpiry: Date | null;
 
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(UserInv);
 
 UserSchema.index({ email: 1 });
 UserSchema.index({ role: 1 });

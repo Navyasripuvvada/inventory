@@ -7,8 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.services';
 import { JwtStrategy } from './strategy/jwt.strategy';
-import { Session,SessionSchema } from '../user/schema/session.schema';
-import { User,UserSchema } from '../user/schema/user.schema';
+import { SessionInv,SessionSchema } from '../user/schema/session.schema';
+import { UserInv,UserSchema } from '../user/schema/user.schema';
 import { JwtAuthGuard} from './guard/authguard.guard';
 
 
@@ -33,12 +33,12 @@ import { MailModule } from '../email/email.module';
 
     MongooseModule.forFeature([
        {
-      name: User.name,
+      name: UserInv.name,
       schema: UserSchema,
      },
 
       {
-        name: Session.name,
+        name: SessionInv.name,
         schema: SessionSchema,
       },
     ]),
