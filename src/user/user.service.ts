@@ -13,7 +13,11 @@ export class UserService{
     constructor(
         @InjectModel(UserInv.name)
         private readonly userModel:Model<UserDocument>
-    ){
-
+    ){}
+    async getme(userId:string){
+        const user = await this.userModel.findById(userId).select('-password')
+        if(!user){
+            throw new NotFoundException
+        }
     }
 }
