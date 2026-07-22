@@ -2,7 +2,7 @@ import {
   IsOptional,
   IsString,
   IsPhoneNumber,
-  IsDateString,
+  IsDate,
 } from 'class-validator';
 
 import {
@@ -17,7 +17,7 @@ export class UpdateProfileDto {
   })
   @IsString()
   @IsOptional()
-  firstName?: string;
+  fullName?: string;
 
 
 
@@ -32,18 +32,12 @@ export class UpdateProfileDto {
   @ApiPropertyOptional({
     example: "2000-01-15"
   })
-  @IsDateString()
+  @IsDate()
   @IsOptional()
   dateOfBirth?: Date;
 
 
-  @ApiPropertyOptional({
-    example: "https://image-url.com/profile.jpg"
-  })
-  @IsString()
-  @IsOptional()
-  profileImage?: string;
-
+ 
 
   @ApiPropertyOptional({
     example: "Hyderabad, India"

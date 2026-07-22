@@ -6,6 +6,8 @@ import {ConfigModule} from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { UploadsModule } from './uploads/upload.module';
 
 
 
@@ -27,6 +29,8 @@ import { AuthModule } from './auth/auth.module';
       },
     }),
   AuthModule,
+  UserModule,
+  UploadsModule,
  
  ],
   controllers: [AppController],

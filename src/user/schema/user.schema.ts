@@ -59,11 +59,12 @@ export class UserInv {
  mobileNumber: string;
 
   @Prop({
+    type: String,
     unique: true,
     sparse: true,
-    default: null,
+    index: true,
   })
-  customerId: string;
+  customerId?: string | null;
 
   @Prop({
     default: null,
