@@ -4,6 +4,7 @@ import { UploadsService } from '../uploads/upload.service';
 import { cloudinaryConfig } from '../config/cloudinary.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserInv,UserSchema } from '../user/schema/user.schema';
+import { ProductInv,ProductSchema } from '../products/schema/products.schema';
 
 @Module({
     imports:[
@@ -11,6 +12,10 @@ import { UserInv,UserSchema } from '../user/schema/user.schema';
       {
         name: UserInv.name,
         schema: UserSchema,
+      },
+      {
+        name: ProductInv.name,
+        schema: ProductSchema,
       },
     ]),
 

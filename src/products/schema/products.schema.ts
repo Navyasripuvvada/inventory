@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
-export type ProductDocument = HydratedDocument<Product>;
+export type ProductDocument= HydratedDocument<ProductInv>;
 
 @Schema({
   timestamps: true,
 })
-export class Product {
+export class ProductInv {
   @Prop({
     required: true,
     trim: true,
@@ -77,6 +77,11 @@ export class Product {
     required: true,
   })
   createdBy: Types.ObjectId;
+
+  @Prop({
+  default: false,
+    })
+    isDeleted: boolean;
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+export const ProductSchema = SchemaFactory.createForClass(ProductInv);

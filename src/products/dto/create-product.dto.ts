@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsNotEmpty,
   Min,
 } from 'class-validator';
 
@@ -15,13 +16,7 @@ export class CreateProductDto {
   @IsString()
   name: string;
 
-  @ApiProperty({
-    example: 'DELL-001',
-    description: 'Unique product SKU',
-  })
-  @IsString()
-  sku: string;
-
+ 
   @ApiPropertyOptional({
     example: 'Dell Inspiron 15 i5 16GB RAM',
     description: 'Product description',
@@ -38,6 +33,8 @@ export class CreateProductDto {
   @Min(0)
   costPrice: number;
 
+  
+
   @ApiProperty({
     example: 55000,
     description: 'Product selling price',
@@ -50,9 +47,18 @@ export class CreateProductDto {
     example: 'Electronics',
     description: 'Product category',
   })
-  @IsOptional()
   @IsString()
-  category?: string;
+  category: string;
 
+  @ApiProperty({
+    example: 'pcs, kg, litre, box',
+    description: 'Product measurement unit',
+  })
+  @IsString()
+  @IsNotEmpty()
+  unit: string;
+
+
+  
  
 }

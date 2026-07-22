@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Param,
   UploadedFile,
   UseInterceptors,UseGuards,Req
 } from '@nestjs/common';
@@ -44,4 +45,38 @@ export class UploadsController {
   ) {
     return this.uploadsService.uploadFile(req.user.userId,file);
   }
+
+
+
+   @Post('product/:productId/image')
+  @UseInterceptors(FileInterceptor('file'),)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+
+
+  async uploadProductImage(
+    @Param('productId') productId: string,
+
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
+
+    return this.uploadsService.uploadProductImage(
+      productId,
+      file,
+    );
+
+  }
+
+
 }
