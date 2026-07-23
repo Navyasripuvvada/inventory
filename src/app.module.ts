@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { UploadsModule } from './uploads/upload.module';
 import { ProductsModule } from './products/product.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 
 
@@ -33,6 +34,7 @@ import { ProductsModule } from './products/product.module';
   UserModule,
   UploadsModule,
   ProductsModule,
+  InventoryModule,
  
  ],
   controllers: [AppController],
