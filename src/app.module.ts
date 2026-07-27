@@ -10,7 +10,8 @@ import { UserModule } from './user/user.module';
 import { UploadsModule } from './uploads/upload.module';
 import { ProductsModule } from './products/product.module';
 import { InventoryModule } from './inventory/inventory.module';
-
+import { SupplierModule } from './supplier/supplier.module';
+import { PurchaseOrdersModule } from './purchase/purchase.module';
 
 
 @Module({
@@ -35,6 +36,8 @@ import { InventoryModule } from './inventory/inventory.module';
   UploadsModule,
   ProductsModule,
   InventoryModule,
+  SupplierModule,
+  PurchaseOrdersModule,
  
  ],
   controllers: [AppController],

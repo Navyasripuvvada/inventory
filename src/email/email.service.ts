@@ -59,4 +59,29 @@ export class MailService{
       console.error('Mail Error:', error);
     }
   }
+  async sendSupplierStatusMail(email:string,name:string,status:string,remarks?:string){
+    let subject:string;
+    let html:string;
+    if(status === "APPROVED"){
+        subject ="Supplier Account Approved";
+        html = `
+        <h2>Hello ${name},</h2>
+        <p>Your supplier account has been approved.</p>
+        <p>You can now login and start adding products.</p>`;
+    }else{
+      subject ="Supplier Account Rejected";
+       html = `<h2>Hello ${name},</h2>
+       <p>Your supplier account has been rejected.</p>
+       <p>Reason:${remarks || "Not specified"}</p>`;
+      }
+      await this.transporter.sendMail({
+        to:email,
+        subject,
+        html
+      });
+
+
+  }
+
+
 }

@@ -1,10 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty ,ApiPropertyOptional} from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
   IsString,
   Matches,
-  MinLength,IsEnum
+  MinLength,IsEnum,IsOptional
 } from 'class-validator';
 import { UserRole } from '../../user/schema/user.schema';
 
@@ -43,6 +43,16 @@ export class RegisterDto {
   })
   @IsEnum(UserRole)
   role: UserRole;
+
+
+  @ApiPropertyOptional({
+    example:'Ravi Electronics',
+    description:
+    'Required only when role is SUPPLIER'
+  })
+  @IsOptional()
+  companyName?:string;
+
 
  
 }

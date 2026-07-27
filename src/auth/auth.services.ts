@@ -14,6 +14,7 @@ import { randomUUID } from 'crypto';
 
 import { UserInv,UserDocument } from '../user/schema/user.schema';
 import { SessionInv,SessionDocument, SessionStatus } from '../user/schema/session.schema';
+import { SupplierInv,SupplierDocument } from '../supplier/schema/supplier.schema';
 import { MailService } from '../email/email.service'
 import { RegisterDto } from './dto/register.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
@@ -23,6 +24,8 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ForgotPasswordDto } from '../auth/dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ResendOtpDto } from './dto/resend-otp.dto';
+import { UserRole } from '../user/schema/user.schema';
+import { SupplierStatus } from '../supplier/schema/supplier.schema';
 
 const OTP_EXPIRY_MINUTES = 10;
 const BCRYPT_ROUNDS = 12;
@@ -35,6 +38,9 @@ export class AuthService{
         private readonly userModel:Model<UserDocument>,
         @InjectModel(SessionInv.name)
         private readonly sessionModel:Model<SessionDocument>,
+        @InjectModel(SupplierInv.name)
+        private readonly supplierModel:Model<SupplierDocument>,
+
         private readonly mailService:MailService,
         private readonly jwtService:JwtService
     ){}
@@ -67,6 +73,13 @@ export class AuthService{
             otpExpiry: emailOtpExpiry
 
         })
+        if(dto.role === UserRole.SUPPLIER) {
+            await this.supplierModel.create({
+                userId: user._id,
+                companyName: dto.companyName,
+                status: SupplierStatus.PENDING,
+            });
+        }
         await this.mailService.sendOtpEmail(user.email,otp)
         console.log(`otp sent to ${user.email}`)
         return{
